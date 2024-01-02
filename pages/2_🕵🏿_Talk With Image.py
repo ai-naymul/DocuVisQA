@@ -5,9 +5,9 @@ import google.generativeai as genai
 
 
 
-def get_gemini_response(input,image,prompt):
+def get_gemini_response(input,image):
     model = genai.GenerativeModel('gemini-pro-vision')
-    response = model.generate_content([input,image[0],prompt])
+    response = model.generate_content([input,image[0]])
     return response.text
     
 
@@ -32,7 +32,7 @@ def input_image_setup(uploaded_file):
 
 st.set_page_config(page_title="Gemini Image Demo")
 
-st.header("Gemini Application")
+st.header("Talk With You Image and  Application")
 input=st.text_input("Input Prompt: ",key="input")
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 image=""   
