@@ -11,8 +11,19 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGener
 import io
 import tempfile
 
-GOOGLE_API_KEY='AIzaSyD3ppjOkpyQCxuZmEFKy-V3mTAhaAnypnw'
-genai.configure(api_key=GOOGLE_API_KEY)
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
+
+
+
+import os
+
+# Fetch the API key from the environment variable
+api_key = os.getenv("GOOGLE_API_KEY")
+
+# Use the API key
+genai.configure(api_key=api_key)
 
 
 
@@ -32,25 +43,24 @@ def load_pdf_split(uploaded_file):
         # Use the temporary file path to load the PDF
         loader = PyPDFLoader(tmp_path)
         pages = loader.load_and_split()
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+        content = "\n\n".join(str(page.page_content) for page in pages)
+
+        texts = text_splitter.split_text(content)
+        print(len(texts))
+        print(texts[0])
+        return texts
     else:
         # Handle the case when uploaded_file is None
         raise ValueError("No file was uploaded.")
+
     
-    pages = loader.load_and_split()
-
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
-    content = "\n\n".join(str(page.page_content) for page in pages)
-
-    texts = text_splitter.split_text(content)
-    print(len(texts))
-    print(texts[0])
-    return texts
 
 
 def load_model():
-    embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001", google_api_key=GOOGLE_API_KEY)
+    embeddings = GoogleGenerativeAIEmbeddings(model = "models/embedding-001", google_api_key=api_key)
 
-    chat_model_pdf =  ChatGoogleGenerativeAI(model="gemini-pro",temperature=0.4, google_api_key=GOOGLE_API_KEY, convert_system_message_to_human=True)
+    chat_model_pdf =  ChatGoogleGenerativeAI(model="gemini-pro",temperature=0.4, google_api_key=api_key, convert_system_message_to_human=True)
     return chat_model_pdf, embeddings
 
 def store_vector(texts, embeddings):
@@ -68,6 +78,37 @@ def question_chain_response(chat_model_pdf,vector_database, user_input):
 
 
 st.set_page_config(page_title="DocUVisQA - Talk With Your Image and PDF")
+
+
+
+
+# Use local CSS
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+
+local_css("style/style.css")
+
+# Load Animation
+animation_symbol = "❄"
+
+st.markdown(
+    f"""
+    <div class="snowflake">{animation_symbol}</div>
+    <div class="snowflake">{animation_symbol}</div>
+    <div class="snowflake">{animation_symbol}</div>
+    <div class="snowflake">{animation_symbol}</div>
+    <div class="snowflake">{animation_symbol}</div>
+    <div class="snowflake">{animation_symbol}</div>
+    <div class="snowflake">{animation_symbol}</div>
+    <div class="snowflake">{animation_symbol}</div>
+    <div class="snowflake">{animation_symbol}</div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
 
 st.header("Talk With You PDF - Gemini Pro")
 user_input = st.text_input("Give Your Prompt Here: ",key="input")

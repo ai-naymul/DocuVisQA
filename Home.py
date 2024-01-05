@@ -5,15 +5,25 @@ st.set_page_config(page_title="DocsVisqa", page_icon='✨')
 
 # Add a header
 st.header("DocsVisqa")
-
-# Add a description
 st.markdown("""
-This project allows you to search in your PDF using the Gemini Pro API, 
-search in your image by Gemini Pro, or chat using Gemini Pro.
+This project is a multi-functional application that leverages the power of Google's Gemini Pro API to provide various services such as searching within PDFs, image recognition, and chatbot functionality. 🚀
+
+## Features 🛠️
+
+1. **PDF Search** 📄: This feature allows users to upload a PDF file and ask questions related to the content of the PDF. The application will then search within the PDF and provide the most relevant answer. This can be particularly useful for quickly finding information within large documents.
+
+2. **Image Recognition** 🖼️: This feature allows users to upload an image and ask questions about it. The application will then analyze the image and provide a response. This can be useful for understanding the content of an image without manual inspection.
+
+3. **Chatbot** 🤖: This feature allows users to interact with a chatbot powered by the Gemini Pro API. The chatbot can answer a wide range of questions and provide useful information.
+
+## Impact 💡
+
+This application can significantly improve productivity by automating the process of searching for information within documents and images. It can also provide quick and accurate responses to various questions, reducing the need for manual research.
+
+## How to Use 📖
+
+To use this application, simply navigate to the desired feature (PDF Search, Image Recognition, or Chatbot) and follow the prompts. For PDF Search and Image Recognition, you will need to upload a file. For the Chatbot, simply type your question into the input field and press "Ask the question". 🖱️
 """)
-
-
-
 
 
 # Use local CSS
@@ -42,56 +52,3 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Create columns for the buttons
-col1, col2, col3 = st.columns(3)
-
-# Add the buttons
-with col1:
-    if st.button('Talk with Image'):
-        # Redirect to the 'Talk with Image' page
-        st.write('Redirecting to the Talk with Image page...')
-with col2:
-    if st.button('Talk with PDF'):
-        # Redirect to the 'Talk with PDF' page
-        st.write('Redirecting to the Talk with PDF page...')
-with col3:
-    if st.button('Chatbot'):
-        # Redirect to the 'Chatbot' page
-        st.write('Redirecting to the Chatbot page...')
-
-
-# Define a list of pages
-pages = ["Home", "Talk with Image", "Talk with PDF", "Chatbot"]
-
-# Use a selectbox for the page selection
-current_page = st.sidebar.selectbox("Select the page:", pages)
-
-# Display the selected page
-if current_page == "Talk with Image":
-    # Import and display the 'Talk with Image' page
-    import pages.Talk_With_Image as Talk_With_Image
-    Talk_With_Image.display()
-elif current_page == "Talk with PDF":
-    # Import and display the 'Talk with PDF' page
-    import pages.Talk_With_PDF as Talk_With_PDF
-    Talk_With_PDF.display()
-elif current_page == "Chatbot":
-    # Import and display the 'Chatbot' page
-    import pages.Chatbot as Chatbot
-    Chatbot.display()
