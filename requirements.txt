@@ -5,3 +5,4 @@ langchain
 pypdf
 chromadb
 faiss-cpu
+langchain-google-genai
