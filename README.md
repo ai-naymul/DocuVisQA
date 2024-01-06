@@ -10,10 +10,31 @@ DocsVisqa is a multi-functional application that leverages the power of Google's
 
 3. **Chatbot** 🤖: This feature allows users to interact with a chatbot powered by the Gemini Pro API. The chatbot can answer a wide range of questions and provide useful information.
 
-## Installation 📦
+## Local Setup or Installation 🛠️
 
-To install the required dependencies, run the following command:
-    ```pip install -r requirements.txt```
+To set up this project on your local machine, follow these steps:
+
+1. **Clone the Repository**: Clone this repository to your local machine using the following command:
+	```git clone https://github.com/ai-naymul/DocsVisqa.git```
+
+2. **Navigate to the Project Directory**: After cloning, navigate to the project directory:
+	```cd DocsVisqa```
+
+3. **Install Dependencies**: Install the required dependencies by running:
+	```pip install -r requirements.txt```
+
+4. **Set Environment Variables**: Create a `.env` file in the root of the project and add your Google API key:
+	- GOOGLE_API_KEY=your_api_key_here
+
+    Make sure to replace `your_api_key_here` with your actual API key. This file is included in the `.gitignore` to prevent it from being committed to the repository.
+
+5. **Run the Streamlit App**: Start the Streamlit app using the following command:
+	```streamlit run Home.py```
+
+
+This will open the app in your default web browser.
+
+Now you're all set to explore and interact with the DocsVisqa Streamlit app locally! Congratulations🎉
 
 ## Usage 🚀
 
